@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Box, Input, Button, Text, FormControl, FormLabel } from "@chakra-ui/react";
+import {
+    Box,
+    Input,
+    Button,
+    Text,
+    FormControl,
+    FormLabel,
+    Select,
+} from "@chakra-ui/react"; 
 import axios from "axios";
 
 const Home = () => {
@@ -26,6 +34,21 @@ const Home = () => {
             ...prev,
             [field]: value,
         }));
+    };
+    
+    const handleDelete = async () => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this resident? Please confirm with their address.");
+        if (confirmDelete && prompt("Please enter the resident's address to confirm deletion:") === resident.address) {
+            try {
+                await axios.delete(`http://localhost:5000/delete-resident/${resident.id}`);
+                alert("Resident deleted successfully!");
+                setResident(null); // Clear the resident state after deletion
+                setUpdatedResident({}); // Reset updated resident state
+            } catch (error) {
+                console.error("Error deleting resident:", error);
+                alert("Failed to delete resident.");
+            }
+        }
     };
 
     const handleSave = async () => {
@@ -62,7 +85,7 @@ const Home = () => {
                     <Text>Address: {resident.address}</Text>
                     <Text>Payment Status: {resident.paymentStatus ? "Yes" : "No"}</Text>
                     <Text>Trash Collection: {resident.trashCollection ? "Yes" : "No"}</Text>
-                    <Text>Pickup Day: {resident.pickupDay || "N/A"}</Text>
+                    <Text>Pickup Day: {editing ? updatedResident.pickupDay : (resident.pickupDay || "N/A")}</Text>
 
                     {editing ? (
                         <Box mt={4}>
@@ -75,23 +98,33 @@ const Home = () => {
                                     onChange={(e) => handleEdit("address", e.target.value)}
                                 />
                                 <FormLabel>Payment Status</FormLabel>
-                                <Input
-                                    type="text"
+                                <Select
                                     value={updatedResident.paymentStatus ? "Yes" : "No"}
-                                    onChange={(e) => handleEdit("paymentStatus", e.target.value.toLowerCase() === "yes")}
-                                />
+                                    onChange={(e) => handleEdit("paymentStatus", e.target.value === "Yes")}
+                                >
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </Select>
                                 <FormLabel>Trash Collection</FormLabel>
-                                <Input
-                                    type="text"
+                                <Select
                                     value={updatedResident.trashCollection ? "Yes" : "No"}
-                                    onChange={(e) => handleEdit("trashCollection", e.target.value.toLowerCase() === "yes")}
-                                />
+                                    onChange={(e) => handleEdit("trashCollection", e.target.value === "Yes")}
+                                >
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </Select>
                                 <FormLabel>Pickup Day</FormLabel>
-                                <Input
-                                    type="text"
+                                <Select
                                     value={updatedResident.pickupDay || ""}
                                     onChange={(e) => handleEdit("pickupDay", e.target.value)}
-                                />
+                                >
+                                    <option value="" disabled>Select a day</option>
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                </Select>
                                 <Button mt={4} colorScheme="teal" onClick={handleSave}>
                                     Save
                                 </Button>
@@ -100,11 +133,18 @@ const Home = () => {
                                 </Button>
                             </FormControl>
                         </Box>
-                    ) : (
-                        <Button mt={4} colorScheme="blue" onClick={() => setEditing(true)}>
-                            Edit Resident
-                        </Button>
-                    )}
+                    ) : 
+                    (
+                        <Box mt={4}>
+                            <Button mt={4} colorScheme="blue" onClick={() => setEditing(true)}>
+                                Edit Resident
+                            </Button>
+                            <Button mt={4} colorScheme="red" onClick={handleDelete}>
+                                Delete Resident
+                            </Button>
+                        </Box>                        
+                    )
+                    }
                 </Box>
             )}
         </Box>
