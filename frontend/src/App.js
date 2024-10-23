@@ -10,6 +10,7 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import RegisterUser from "./components/RegisterUser";
 import { Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext'; // Import AuthProvider
 import { auth } from './FirebaseUse'; // Import Firebase auth
 
 const App = () => {
@@ -32,16 +33,18 @@ const App = () => {
   
   return (
     <ChakraProvider theme={customTheme}>
+      <AuthProvider>
         <BrowserRouter>
         <NavBar user={user} /> {/* Pass the user to NavBar if needed */}
         <Routes>
             <Route path="/" element={!user ? <Navigate to="/login" /> : <Navigate to="/home" />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/register" element={<RegisterUser onRegister={handleRegister} />} />
-            <Route path="/home" element={<Home />} /> {/* Show Home component */}
-            <Route path="components/add-resident" element={<AddResidentForm />} />
+            <Route path="/home" element={user ? <Home /> : <Navigate to="/login" />} /> {/* Protected Route */}
+            <Route path="/components/add-resident" element={user ? <AddResidentForm /> : <Navigate to="/login" />} /> {/* Protected Route */}
         </Routes>
         </BrowserRouter>
+      </AuthProvider>
     </ChakraProvider>
   );
 }
