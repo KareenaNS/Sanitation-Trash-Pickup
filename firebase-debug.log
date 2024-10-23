@@ -1,0 +1,246 @@
+[debug] [2024-10-21T20:09:22.720Z] ----------------------------------------------------------------------
+[debug] [2024-10-21T20:09:22.722Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Kareena\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-10-21T20:09:22.722Z] CLI Version:   13.22.1
+[debug] [2024-10-21T20:09:22.722Z] Platform:      win32
+[debug] [2024-10-21T20:09:22.722Z] Node Version:  v20.12.2
+[debug] [2024-10-21T20:09:22.722Z] Time:          Mon Oct 21 2024 16:09:22 GMT-0400 (Eastern Daylight Time)
+[debug] [2024-10-21T20:09:22.722Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-21T20:09:22.727Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-21T20:09:22.727Z] > authorizing via signed-in user (kareena012003@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Kareena\Documents\Sanitation-Trash-Pickup
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-10-21T20:10:01.800Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:10:01.800Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:10:01.802Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2024-10-21T20:10:02.048Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-10-21T20:10:02.048Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project sanitation-trash-pickup (Sanitation-Trash-Pickup) 
+[info] 
+=== Dataconnect Setup
+[debug] [2024-10-21T20:10:03.666Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:10:03.666Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:10:03.666Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/sanitation-trash-pickup/billingInfo [none]
+[debug] [2024-10-21T20:10:04.169Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/sanitation-trash-pickup/billingInfo 200
+[debug] [2024-10-21T20:10:04.169Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/sanitation-trash-pickup/billingInfo {"name":"projects/sanitation-trash-pickup/billingInfo","projectId":"sanitation-trash-pickup","billingAccountName":"","billingEnabled":false}
+[info] i  dataconnect: ensuring required API sqladmin.googleapis.com is enabled... 
+[debug] [2024-10-21T20:10:04.170Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:10:04.170Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:10:04.170Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/sqladmin.googleapis.com [none]
+[debug] [2024-10-21T20:10:04.170Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/sqladmin.googleapis.com x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:10:04.780Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/sqladmin.googleapis.com 200
+[debug] [2024-10-21T20:10:04.780Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/sqladmin.googleapis.com [omitted]
+[warn] !  dataconnect: missing required API sqladmin.googleapis.com. Enabling now... 
+[debug] [2024-10-21T20:10:04.782Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:10:04.782Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:10:04.782Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/sqladmin.googleapis.com:enable [none]
+[debug] [2024-10-21T20:10:04.782Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/sqladmin.googleapis.com:enable x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:10:05.364Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/sqladmin.googleapis.com:enable 200
+[debug] [2024-10-21T20:10:05.364Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/sqladmin.googleapis.com:enable [omitted]
+[debug] [2024-10-21T20:10:15.367Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:10:15.367Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:10:15.368Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/sqladmin.googleapis.com [none]
+[debug] [2024-10-21T20:10:15.368Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/sqladmin.googleapis.com x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:10:15.674Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/sqladmin.googleapis.com 200
+[debug] [2024-10-21T20:10:15.675Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/sqladmin.googleapis.com [omitted]
+[info] +  dataconnect: required API sqladmin.googleapis.com is enabled 
+[info] +  Wrote dataconnect\dataconnect.yaml 
+[info] +  Wrote dataconnect\schema\schema.gql 
+[info] +  Wrote dataconnect\connector\connector.yaml 
+[info] +  Wrote dataconnect\connector\queries.gql 
+[info] +  Wrote dataconnect\connector\mutations.gql 
+[info] +  Detected WEB app in directory C:\Users\Kareena\Documents\Sanitation-Trash-Pickup 
+[info] i  Wrote new config to C:\Users\Kareena\Documents\Sanitation-Trash-Pickup\dataconnect\connector/connector.yaml 
+[info] i  dataconnect: downloading dataconnect-emulator-1.5.1.exe... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-1.5.1.exe..."}}
+[debug] [2024-10-21T20:11:37.084Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-v1.5.1 
+[debug] [2024-10-21T20:11:37.267Z] <<< [apiv2][status] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-v1.5.1 200
+[debug] [2024-10-21T20:11:37.268Z] <<< [apiv2][body] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-v1.5.1 [stream]
+[info] I1021 16:11:39.481459   65280 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\Kareena\\Documents\\Sanitation-Trash-Pickup\\dataconnect-generated\\js\\default-connector"
+I1021 16:11:39.482460   65280 generate.go:40] Generated all sources. Writing them to disk...
+I1021 16:11:39.485197   65280 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\Kareena\\Documents\\Sanitation-Trash-Pickup\\dataconnect-generated\\js\\default-connector"
+Generated sources: index.d.ts [264B] esm\index.esm.js [196B] esm\package.json [17B] index.cjs.js [237B] package.json [623B] 
+I1021 16:11:39.490207   65280 installsdk.go:76] Running command: C:\Program Files\nodejs\npm.cmd install file:dataconnect-generated\js\default-connector
+
+[info] i  Generated SDK code for default 
+[info] +  If you'd like to add more generated SDKs to your app your later, run firebase init dataconnect:sdk again 
+[info] i  If you'd like to provision a CloudSQL Postgres instance on the Firebase Data Connect no-cost trial:
+1. Please upgrade to the pay-as-you-go (Blaze) billing plan. Visit the following page:
+     https://console.firebase.google.com/project/sanitation-trash-pickup/usage/details
+2. Run firebase init dataconnect again to configure the Cloud SQL instance.
+3. Run firebase deploy --only dataconnect to deploy your Data Connect service. 
+[info] 
+=== Firestore Setup
+[debug] [2024-10-21T20:11:40.757Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:11:40.757Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:11:40.758Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/firestore.googleapis.com [none]
+[debug] [2024-10-21T20:11:40.758Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/firestore.googleapis.com x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:11:41.049Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/firestore.googleapis.com 200
+[debug] [2024-10-21T20:11:41.049Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/firestore.googleapis.com [omitted]
+[debug] [2024-10-21T20:11:41.050Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:11:41.050Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:11:41.050Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/sanitation-trash-pickup/databases/(default) [none]
+[debug] [2024-10-21T20:11:41.276Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/sanitation-trash-pickup/databases/(default) 200
+[debug] [2024-10-21T20:11:41.276Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/sanitation-trash-pickup/databases/(default) {"name":"projects/sanitation-trash-pickup/databases/(default)","uid":"98b87f34-443c-4329-9876-287b6c8f5255","createTime":"2024-09-20T16:23:06.774920Z","updateTime":"2024-09-20T16:23:06.774920Z","locationId":"nam5","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2024-10-21T19:11:41.247996Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"s","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","etag":"IIjAuZakoIkDMOS32N730YgD"}
+[debug] [2024-10-21T20:11:41.276Z] database_type: FIRESTORE_NATIVE
+[debug] [2024-10-21T20:11:41.276Z] database_type: FIRESTORE_NATIVE
+[debug] [2024-10-21T20:11:41.276Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-21T20:11:41.276Z] > authorizing via signed-in user (kareena012003@gmail.com)
+[debug] [2024-10-21T20:11:41.276Z] [iam] checking project sanitation-trash-pickup for permissions ["firebase.projects.get"]
+[debug] [2024-10-21T20:11:41.277Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:11:41.277Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:11:41.277Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions [none]
+[debug] [2024-10-21T20:11:41.277Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:11:41.277Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-21T20:11:41.350Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions 200
+[debug] [2024-10-21T20:11:41.350Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions {"permissions":["firebase.projects.get"]}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2024-10-21T20:12:02.606Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:02.607Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:02.607Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/sanitation-trash-pickup/releases pageSize=10&pageToken=
+[debug] [2024-10-21T20:12:03.142Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/sanitation-trash-pickup/releases 200
+[debug] [2024-10-21T20:12:03.142Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/sanitation-trash-pickup/releases {"releases":[{"name":"projects/sanitation-trash-pickup/releases/cloud.firestore","rulesetName":"projects/sanitation-trash-pickup/rulesets/ec20162c-e3b5-4f5a-88e1-ee0949b86cd1","createTime":"2024-09-20T16:23:11.156409Z","updateTime":"2024-09-20T16:23:11.156409Z"}]}
+[debug] [2024-10-21T20:12:03.142Z] Found ruleset: projects/sanitation-trash-pickup/rulesets/ec20162c-e3b5-4f5a-88e1-ee0949b86cd1
+[debug] [2024-10-21T20:12:03.143Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:03.143Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:03.143Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/sanitation-trash-pickup/rulesets/ec20162c-e3b5-4f5a-88e1-ee0949b86cd1 [none]
+[debug] [2024-10-21T20:12:03.317Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/sanitation-trash-pickup/rulesets/ec20162c-e3b5-4f5a-88e1-ee0949b86cd1 200
+[debug] [2024-10-21T20:12:03.318Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/sanitation-trash-pickup/rulesets/ec20162c-e3b5-4f5a-88e1-ee0949b86cd1 [omitted]
+[info] 
+[info] Firestore indexes allow you to perform complex queries while
+[info] maintaining performance that scales with the size of the result
+[info] set. You can keep index definitions in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2024-10-21T20:12:05.625Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:05.626Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:05.626Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:05.626Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:05.626Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/sanitation-trash-pickup/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2024-10-21T20:12:05.629Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/sanitation-trash-pickup/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2024-10-21T20:12:05.884Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/sanitation-trash-pickup/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2024-10-21T20:12:05.884Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/sanitation-trash-pickup/databases/(default)/collectionGroups/-/indexes {}
+[debug] [2024-10-21T20:12:05.886Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/sanitation-trash-pickup/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2024-10-21T20:12:05.886Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/sanitation-trash-pickup/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/sanitation-trash-pickup/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[info] 
+=== Genkit Setup
+[debug] [2024-10-21T20:12:37.220Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-21T20:12:37.220Z] > authorizing via signed-in user (kareena012003@gmail.com)
+[debug] [2024-10-21T20:12:37.220Z] [iam] checking project sanitation-trash-pickup for permissions ["firebase.projects.get"]
+[debug] [2024-10-21T20:12:37.220Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:37.220Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:37.220Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions [none]
+[debug] [2024-10-21T20:12:37.220Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:12:37.220Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-21T20:12:37.358Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions 200
+[debug] [2024-10-21T20:12:37.359Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-21T20:12:37.359Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:37.359Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:37.360Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:37.360Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:37.360Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-10-21T20:12:37.360Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:12:37.362Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-10-21T20:12:37.362Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:12:37.565Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com 200
+[debug] [2024-10-21T20:12:37.565Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2024-10-21T20:12:37.565Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:37.565Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:37.566Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com:enable [none]
+[debug] [2024-10-21T20:12:37.566Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com:enable x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:12:37.627Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/runtimeconfig.googleapis.com 200
+[debug] [2024-10-21T20:12:37.628Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-10-21T20:12:38.102Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com:enable 200
+[debug] [2024-10-21T20:12:38.102Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com:enable [omitted]
+[debug] [2024-10-21T20:12:48.116Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:48.116Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:12:48.116Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-10-21T20:12:48.116Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:12:48.412Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com 200
+[debug] [2024-10-21T20:12:48.413Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com [omitted]
+[info] Let's create a new codebase for your functions.
+[info] A directory corresponding to the codebase will be created in your project
+[info] with sample code pre-configured.
+
+[info] See https://firebase.google.com/docs/functions/organize-functions for
+[info] more information on organizing your functions using codebases.
+
+[info] Functions can be deployed with firebase deploy.
+
+[info] +  Wrote functions/package.json 
+[info] +  Wrote functions/.eslintrc.js 
+[info] +  Wrote functions/tsconfig.json 
+[info] +  Wrote functions/tsconfig.dev.json 
+[info] +  Wrote functions/src/index.ts 
+[info] +  Wrote functions/.gitignore 
+[info] 
+[info] Installing Genkit CLI
+[error] Genkit initialization failed...
+[info] 
+=== Functions Setup
+[debug] [2024-10-21T20:14:03.451Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-21T20:14:03.451Z] > authorizing via signed-in user (kareena012003@gmail.com)
+[debug] [2024-10-21T20:14:03.451Z] [iam] checking project sanitation-trash-pickup for permissions ["firebase.projects.get"]
+[debug] [2024-10-21T20:14:03.451Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:14:03.451Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:14:03.451Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions [none]
+[debug] [2024-10-21T20:14:03.451Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:14:03.451Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-21T20:14:03.524Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions 200
+[debug] [2024-10-21T20:14:03.525Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sanitation-trash-pickup:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-21T20:14:03.525Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:14:03.525Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:14:03.525Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:14:03.525Z] Checked if tokens are valid: true, expires at: 1729544921927
+[debug] [2024-10-21T20:14:03.525Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-10-21T20:14:03.525Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:14:03.528Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-10-21T20:14:03.528Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/sanitation-trash-pickup
+[debug] [2024-10-21T20:14:03.814Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/runtimeconfig.googleapis.com 200
+[debug] [2024-10-21T20:14:03.814Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-10-21T20:14:03.816Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com 200
+[debug] [2024-10-21T20:14:03.816Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/sanitation-trash-pickup/services/cloudfunctions.googleapis.com [omitted]
+[info] 
+Detected existing codebase(s): default
+
+[info] Let's create a new codebase for your functions.
+[info] A directory corresponding to the codebase will be created in your project
+[info] with sample code pre-configured.
+
+[info] See https://firebase.google.com/docs/functions/organize-functions for
+[info] more information on organizing your functions using codebases.
+
+[info] Functions can be deployed with firebase deploy.
+
+[error] Invalid codebase name. Codebase must be less than 64 characters and can contain only lowercase letters, numeric characters, underscores, and dashes.
+[error] Invalid codebase name. Codebase must be less than 64 characters and can contain only lowercase letters, numeric characters, underscores, and dashes.
+[info] +  Wrote backend/requirements.txt 
+[info] +  Wrote backend/.gitignore 
+[info] +  Wrote backend/main.py 
+[debug] [2024-10-21T20:15:58.411Z] Running command with virtualenv: command="C:\Users\Kareena\Documents\Sanitation-Trash-Pickup\backend\venv\Scripts\activate.bat", args=["","&&","pip3","install","--upgrade","pip"]
+[debug] [2024-10-21T20:15:59.956Z] Error: spawn "C:\Users\Kareena\Documents\Sanitation-Trash-Pickup\backend\venv\Scripts\activate.bat" ENOENT
+    at notFoundError (C:\Users\Kareena\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:6:26)
+    at verifyENOENT (C:\Users\Kareena\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:40:16)
+    at cp.emit (C:\Users\Kareena\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:27:25)
+    at ChildProcess._handle.onexit (node:internal/child_process:294:12)
+[error] 
+[error] Error: An unexpected error has occurred.

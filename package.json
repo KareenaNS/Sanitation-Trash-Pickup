@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
+    "axios": "^1.7.7",
+    "csv-parser": "^3.0.0",
+    "firebase": "^10.14.1",
+    "firebase-admin": "^12.5.0",
+    "qrcode.react": "^4.0.1",
+    "react-qr-reader": "^3.0.0-beta-1"
+  }
+}
