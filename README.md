@@ -8,11 +8,14 @@ This project allows trash collectors to scan QR codes on trash cans to check if 
 - Update trash pickup status weekly.
 
 ## Sprint 1 Features
+- Completed this sprint: Added all the residents from the original CSV file into the database, implemented UI for editing a resident, and coded UI for the resident to be searchable by address on the home page, and editable there too
 - Known bugs: residents are unable to be added to the database, UI for this page needs to be fixed as well, residents payment and trash collected field are not editable currently
 - Next features to implement: a login for the user in sanitation to update residents, debugging
 - Future sprints: generate a QR code based on the resident's ID, linking the QR code to the resident ID, automating having the user scan a QR code and it automatically marks the trash as picked up for that resident (changeable based on the week), automating payments
 
 ## Sprint 2 Features
-- Known bugs:
-- Next features to implement:
-- Future sprints: 
+- Completed this sprint: Implemented login and logout feature, the navbar is unable to be accessed (like home and add resident) without logging in, the adding a resident bug has been fixed, a resident is able to be deleted, all fields except entering or changing an address have been changed from text fields to dropdown menus
+- Known bugs: N/A
+- Next features to implement: Create a page with a list of all residents, start researching how i can link the qr code to the six digit resident id i made
+    - The Qr code should be able to do two things: 1. it should display to the person scanning it that the resident has paid or not and 2. it should update the database to change the trashCollection field to true
+- Future sprints: TBA
