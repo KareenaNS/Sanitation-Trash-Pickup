@@ -47,101 +47,134 @@ def generate_unique_id():
 # def create_resident():
 #     if 'file' not in request.files:
 #         return jsonify({'error': 'No file part'}), 400
+
 #     file = request.files['file']
 #     if file.filename == '':
 #         return jsonify({'error': 'No selected file'}), 400
+
 #     if file and file.filename.endswith('.csv'):
 #         filename = secure_filename(file.filename)
 #         file.save(filename)
-#         # Read the CSV file
-#         with open(filename, 'r') as csvfile:
-#             reader = csv.DictReader(csvfile)
-#             for row in reader:
-#                 address = row.get('address')
-#                 payment_status = row.get('paymentStatus')
-#                 trash_collection = row.get('trashCollection')
-#                 # Generate a unique resident ID
-#                 resident_id = generate_unique_id()
-#                 # Create resident document in Firestore
-#                 resident_data = {
-#                     'id': resident_id,
-#                     'address': address,
-#                     'paymentStatus': payment_status,
-#                     'trashCollection': trash_collection
-#                 }
-#                 db.collection('residents').document(str(resident_id)).set(resident_data)
-#         os.remove(filename)
+
+#         try:
+#             with open(filename, 'r') as csvfile:
+#                 reader = csv.DictReader(csvfile)
+#                 for row in reader:
+#                     address = row.get('address')
+#                     pickup_day = row.get('pickupDay')
+#                     payment_status = row.get('paymentStatus')
+#                     trash_collection = row.get('trashCollection')
+
+#                     # Generate a unique resident ID or use existing one
+#                     resident_id = row.get('id') or generate_unique_id()
+
+#                     # Create resident document in Firestore
+#                     resident_data = {
+#                         'id': resident_id,
+#                         'address': address,
+#                         'pickupDay': pickup_day or 'undecided',
+#                         'paymentStatus': payment_status.lower() == 'yes',  # Convert to boolean
+#                         'trashCollection': trash_collection.lower() == 'yes'  # Convert to boolean
+#                     }
+#                     db.collection('residents').document(str(resident_id)).set(resident_data)
+#         except Exception as e:
+#             return jsonify({'error': str(e)}), 500
+#         finally:
+#             os.remove(filename)  # Remove the file after processing
+
+#         return jsonify({'message': 'Residents created successfully!'}), 201
+    
+#     # Check if the request has JSON data (for frontend submission)
+#     data = request.json
+#     print("Received data:", data)  # Add this to see what's being sent
+#     if data:
+#         address = data.get('address')
+#         pickup_day = data.get('pickupDay')
+#         payment_status = data.get('paymentStatus')
+#         trash_collection = data.get('trashCollection')
+
+#         if not address or not payment_status or not trash_collection or not pickup_day:
+#             return jsonify({'error': 'All fields are required'}), 400
+
+#         # Generate a unique resident ID
+#         resident_id = row.get('id') or generate_unique_id()
+
+#         # Create resident document in Firestore
+#         resident_data = {
+#             'id': resident_id,
+#             'address': address,
+#             'pickupDay': pickup_day,
+#             'paymentStatus': payment_status.lower() == 'yes',
+#             'trashCollection': trash_collection.lower() == 'yes',
+#         }
+#         db.collection('residents').document(str(resident_id)).set(resident_data)
+
 #         return jsonify({'id': resident_id, 'message': 'Resident created successfully!'}), 201
-#     return jsonify({'error': 'Invalid file type'}), 400
+
+#     return jsonify({'error': 'Invalid file type, please upload a CSV file.'}), 400
 
 @app.route('/create-resident', methods=['POST'])
 def create_resident():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
+    # Check if there's a file in the request (CSV upload)
+    if 'file' in request.files:
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({'error': 'No selected file'}), 400
+        if file and file.filename.endswith('.csv'):
+            filename = secure_filename(file.filename)
+            file.save(filename)
+            try:
+                # Process the CSV file
+                with open(filename, 'r') as csvfile:
+                    reader = csv.DictReader(csvfile)
+                    for row in reader:
+                        address = row.get('address')
+                        pickup_day = row.get('pickupDay')
+                        payment_status = row.get('paymentStatus')
+                        trash_collection = row.get('trashCollection')
+                        # Generate a unique resident ID or use existing one
+                        resident_id = row.get('id') or generate_unique_id()
 
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
+                        # Create resident document in Firestore
+                        resident_data = {
+                            'id': resident_id,
+                            'address': address,
+                            'pickupDay': pickup_day or 'undecided',
+                            'paymentStatus': payment_status.lower() == 'yes',  # Convert to boolean
+                            'trashCollection': trash_collection.lower() == 'yes'  # Convert to boolean
+                        }
+                        db.collection('residents').document(str(resident_id)).set(resident_data)
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
+            finally:
+                os.remove(filename)  # Remove the file after processing
 
-    if file and file.filename.endswith('.csv'):
-        filename = secure_filename(file.filename)
-        file.save(filename)
-
-        try:
-            with open(filename, 'r') as csvfile:
-                reader = csv.DictReader(csvfile)
-                for row in reader:
-                    address = row.get('address')
-                    pickup_day = row.get('pickupDay')
-                    payment_status = row.get('paymentStatus')
-                    trash_collection = row.get('trashCollection')
-
-                    # Generate a unique resident ID or use existing one
-                    resident_id = row.get('id') or generate_unique_id()
-
-                    # Create resident document in Firestore
-                    resident_data = {
-                        'id': resident_id,
-                        'address': address,
-                        'pickupDay': pickup_day or 'undecided',
-                        'paymentStatus': payment_status.lower() == 'yes',  # Convert to boolean
-                        'trashCollection': trash_collection.lower() == 'yes'  # Convert to boolean
-                    }
-                    db.collection('residents').document(str(resident_id)).set(resident_data)
-        except Exception as e:
-            return jsonify({'error': str(e)}), 500
-        finally:
-            os.remove(filename)  # Remove the file after processing
-
-        return jsonify({'message': 'Residents created successfully!'}), 201
-    
-        # Check if the request has JSON data (for frontend submission)
+            return jsonify({'message': 'Residents created successfully!'}), 201
+        else:
+            return jsonify({'error': 'Invalid file type, please upload a CSV file.'}), 400
+    # If no file, check for JSON data (for single resident creation via form)
     data = request.json
+    print("Received data:", data)  # For debugging purposes
     if data:
         address = data.get('address')
+        pickup_day = data.get('pickupDay')
         payment_status = data.get('paymentStatus')
         trash_collection = data.get('trashCollection')
-        pickup_day = data.get('pickupDay')
-
         if not address or not payment_status or not trash_collection or not pickup_day:
             return jsonify({'error': 'All fields are required'}), 400
-
         # Generate a unique resident ID
         resident_id = generate_unique_id()
-
         # Create resident document in Firestore
         resident_data = {
             'id': resident_id,
             'address': address,
-            'paymentStatus': payment_status.lower() == 'yes',
-            'trashCollection': trash_collection.lower() == 'yes',
-            'pickupDay': pickup_day
+            'pickupDay': pickup_day,
+            'paymentStatus': payment_status.lower() == 'yes',  # Convert to boolean
+            'trashCollection': trash_collection.lower() == 'yes'  # Convert to boolean
         }
         db.collection('residents').document(str(resident_id)).set(resident_data)
-
         return jsonify({'id': resident_id, 'message': 'Resident created successfully!'}), 201
-
-    return jsonify({'error': 'Invalid file type, please upload a CSV file.'}), 400
+    return jsonify({'error': 'No data provided'}), 400
 
 
 @app.route('/get-resident', methods=['GET'])

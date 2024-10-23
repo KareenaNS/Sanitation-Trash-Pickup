@@ -17,6 +17,8 @@ const AddResidentForm = () => {
             trashCollection,
         };
 
+        console.log(residentData); // Check the data you're sending
+
         try {
             const response = await axios.post('http://localhost:5000/create-resident', residentData);
             alert(response.data.message);
