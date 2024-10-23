@@ -195,6 +195,14 @@ def update_resident(resident_id):
     db.collection('residents').document(resident_id).update(resident_data)
     return jsonify({'message': 'Resident updated successfully!'}), 200
 
+@app.route('/delete-resident/<resident_id>', methods=['DELETE'])
+def delete_resident(resident_id):
+    try:
+        # Find and delete the resident document in Firestore
+        db.collection('residents').document(resident_id).delete()
+        return jsonify({'message': 'Resident deleted successfully!'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
