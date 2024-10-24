@@ -6,7 +6,9 @@ import {
     Text,
     FormControl,
     FormLabel,
-    Select,
+    Select, 
+    Image,
+    HStack,
 } from "@chakra-ui/react"; 
 import axios from "axios";
 
@@ -64,23 +66,26 @@ const Home = () => {
     };
 
     return (
-        <Box p={5}>
+        <Box p={5} pl={10} pr={5}>
             <FormControl mb={4}>
                 <FormLabel>Search Resident by Address</FormLabel>
-                <Input
-                    type="text"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="Enter resident address"
-                />
-                <Button mt={2} colorScheme="teal" onClick={handleSearch}>
-                    Search
-                </Button>
+                <HStack spacing={2}> {/* Use HStack to group Input and Button with spacing */}
+                    <Input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder="Enter resident address"
+                        width="200px" // Set a specific width for the input to shorten it
+                    />
+                    <Button mt={2} colorScheme="teal" onClick={handleSearch}>
+                        Search
+                    </Button>
+                </HStack>
             </FormControl>
 
             {resident && (
-                <Box mt={4}>
-                    <Text fontSize="xl">Resident Details:</Text>
+                <Box mt={4} bg="white" p={4} borderRadius="md" boxShadow="md">
+                    <Text fontSize="xl" fontWeight="bold">Resident Details:</Text>
                     <Text>ID: {resident.id}</Text>
                     <Text>Address: {resident.address}</Text>
                     <Text>Payment Status: {resident.paymentStatus ? "Yes" : "No"}</Text>
@@ -89,7 +94,7 @@ const Home = () => {
 
                     {editing ? (
                         <Box mt={4}>
-                            <Text fontSize="lg">Edit Resident:</Text>
+                            <Text fontSize="lg" fontWeight="bold">Edit Resident:</Text>
                             <FormControl>
                                 <FormLabel>Address</FormLabel>
                                 <Input
@@ -133,18 +138,18 @@ const Home = () => {
                                 </Button>
                             </FormControl>
                         </Box>
-                    ) : 
-                    (
+                    ) : (
                         <Box mt={4}>
-                            <Button mt={4} colorScheme="blue" onClick={() => setEditing(true)}>
-                                Edit Resident
-                            </Button>
-                            <Button mt={4} colorScheme="red" onClick={handleDelete}>
-                                Delete Resident
-                            </Button>
-                        </Box>                        
-                    )
-                    }
+                            <HStack spacing={4}>
+                                <Button variant="edit" onClick={() => setEditing(true)}>
+                                    Edit Resident
+                                </Button>
+                                <Button variant="danger" onClick={handleDelete}>
+                                    Delete Resident
+                                </Button>
+                            </HStack>
+                        </Box>
+                    )}
                 </Box>
             )}
         </Box>
