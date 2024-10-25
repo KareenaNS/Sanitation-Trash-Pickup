@@ -1,159 +1,262 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-    Box,
-    Input,
-    Button,
-    Text,
-    FormControl,
-    FormLabel,
-    Select, 
-    Image,
-    HStack,
-} from "@chakra-ui/react"; 
-import axios from "axios";
+  Box,
+  Text,
+  Select,
+  VStack,
+  HStack,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+} from "@chakra-ui/react";
+import { collection, getDocs, query, orderBy, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { db } from "../FirebaseUse"; // Ensure to import your Firebase setup
 
 const Home = () => {
-    const [address, setAddress] = useState("");
-    const [resident, setResident] = useState(null);
-    const [editing, setEditing] = useState(false);
-    const [updatedResident, setUpdatedResident] = useState({});
+  const [residents, setResidents] = useState([]);
+  const [filteredResidents, setFilteredResidents] = useState([]);
+  const [filterPayment, setFilterPayment] = useState([]);
+  const [filterTrashCollected, setFilterTrashCollected] = useState("");
+  const [filterPickupDays, setFilterPickupDays] = useState([]);
+  const [editingResident, setEditingResident] = useState(null);
+  const [updatedResident, setUpdatedResident] = useState({
+    address: "",
+    pickupDay: "",
+    paymentStatus: false, // Set default boolean value
+    trashCollection: false, // Set default boolean value
+});  const [searchTerm, setSearchTerm] = useState(""); // State for search term
 
-    const handleSearch = async () => {
-        try {
-            const response = await axios.get(`http://localhost:5000/get-resident`, {
-                params: { address },
-            });
-            setResident(response.data);
-            setUpdatedResident(response.data); // Set initial values for editing
-        } catch (error) {
-            console.error("Error fetching resident:", error);
-            alert("Resident not found.");
-        }
-    };
+  // Fetch residents from Firestore and sort by pickupDay
+  const fetchResidents = async () => {
+    try {
+      const q = query(collection(db, "residents"), orderBy("pickupDay"));
+      const querySnapshot = await getDocs(q);
+      const residentData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })); // Include the doc ID
+      setResidents(residentData);
+      setFilteredResidents(residentData); // Initialize the filtered list
+    } catch (error) {
+      console.error("Error fetching residents:", error);
+    }
+  };
 
-    const handleEdit = (field, value) => {
-        setUpdatedResident((prev) => ({
-            ...prev,
-            [field]: value,
-        }));
-    };
-    
-    const handleDelete = async () => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this resident? Please confirm with their address.");
-        if (confirmDelete && prompt("Please enter the resident's address to confirm deletion:") === resident.address) {
-            try {
-                await axios.delete(`http://localhost:5000/delete-resident/${resident.id}`);
-                alert("Resident deleted successfully!");
-                setResident(null); // Clear the resident state after deletion
-                setUpdatedResident({}); // Reset updated resident state
-            } catch (error) {
-                console.error("Error deleting resident:", error);
-                alert("Failed to delete resident.");
+  useEffect(() => {
+    fetchResidents();
+  }, []);
+
+  // Filter residents automatically based on selections and search term
+  useEffect(() => {
+    let filtered = residents;
+
+    // Apply payment status filter
+    if (filterPayment.length > 0) {
+      filtered = filtered.filter(resident =>
+        filterPayment.includes(resident.paymentStatus ? "Paid" : "Unpaid")
+      );
+    }
+
+    // Apply trash collection status filter
+    if (filterTrashCollected) {
+      filtered = filtered.filter(resident => 
+        filterTrashCollected === "Yes" ? resident.trashCollection : !resident.trashCollection
+      );
+    }
+
+    // Apply pickup day filter
+    if (filterPickupDays.length > 0) {
+      filtered = filtered.filter(resident =>
+        filterPickupDays.includes(resident.pickupDay)
+      );
+    }
+
+    // Apply search term filter
+    if (searchTerm) {
+      filtered = filtered.filter(resident =>
+        resident.address.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    setFilteredResidents(filtered);
+  }, [filterPayment, filterTrashCollected, filterPickupDays, residents, searchTerm]);
+
+  const handleEdit = (resident) => {
+    console.log("Resident ID:", resident.id); // Log the ID for debugging
+    setEditingResident(resident.id);
+    setUpdatedResident({
+      address: resident.address,
+      pickupDay: resident.pickupDay,
+      paymentStatus: resident.paymentStatus, // Assuming this is a boolean
+      trashCollection: resident.trashCollection, // Assuming this is a boolean
+  });  };
+
+  const handleSave = async () => {
+    try {
+      const residentRef = doc(db, "residents", String(editingResident));
+      await updateDoc(residentRef, updatedResident);
+      alert("Resident updated successfully!");
+      setEditingResident(null); // Clear editing state
+      fetchResidents(); // Refresh the list
+    } catch (error) {
+      console.error("Error updating resident:", error);
+      alert("Failed to update resident.");
+    }
+  };
+
+  const handleDelete = async (residentId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this resident?");
+    if (confirmDelete) {
+      try {
+        await deleteDoc(doc(db, "residents", String(residentId)));
+        alert("Resident deleted successfully!");
+        fetchResidents(); // Refresh the list
+      } catch (error) {
+        console.error("Error deleting resident:", error);
+        alert("Failed to delete resident.");
+      }
+    }
+  };
+
+  return (
+    <Box p={5}>
+      <Text fontSize="2xl" mb={4}>Resident List</Text>
+
+      {/* Filter Section */}
+      <HStack spacing={4} mb={6}>
+        {/* Payment Status Filter */}
+        <Select
+          placeholder="Select Payment Status"
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value) {
+              setFilterPayment([value]);
+            } else {
+              setFilterPayment([]);
             }
-        }
-    };
+          }}
+        >
+          <option value="Paid">Paid</option>
+          <option value="Unpaid">Unpaid</option>
+        </Select>
 
-    const handleSave = async () => {
-        try {
-            await axios.put(`http://localhost:5000/update-resident/${resident.id}`, updatedResident);
-            alert("Resident updated successfully!");
-            setResident(updatedResident);
-            setEditing(false);
-        } catch (error) {
-            console.error("Error updating resident:", error);
-            alert("Failed to update resident.");
-        }
-    };
+        {/* Trash Collection Filter */}
+        <Select
+          placeholder="Trash Collected?"
+          onChange={(e) => {
+            setFilterTrashCollected(e.target.value);
+          }}
+        >
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </Select>
 
-    return (
-        <Box p={5} pl={10} pr={5}>
-            <FormControl mb={4}>
-                <FormLabel>Search Resident by Address</FormLabel>
-                <HStack spacing={2}> {/* Use HStack to group Input and Button with spacing */}
-                    <Input
-                        type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        placeholder="Enter resident address"
-                        width="200px" // Set a specific width for the input to shorten it
-                    />
-                    <Button mt={2} colorScheme="teal" onClick={handleSearch}>
-                        Search
-                    </Button>
-                </HStack>
-            </FormControl>
+        {/* Pickup Day Filter */}
+        <Select
+          placeholder="Select Pickup Day"
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value) {
+              setFilterPickupDays([value]);
+            } else {
+              setFilterPickupDays([]);
+            }
+          }}
+        >
+          {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map(day => (
+            <option key={day} value={day}>
+              {day}
+            </option>
+          ))}
+        </Select>
+      </HStack>
 
-            {resident && (
-                <Box mt={4} bg="white" p={4} borderRadius="md" boxShadow="md">
-                    <Text fontSize="xl" fontWeight="bold">Resident Details:</Text>
-                    <Text>ID: {resident.id}</Text>
-                    <Text>Address: {resident.address}</Text>
-                    <Text>Payment Status: {resident.paymentStatus ? "Yes" : "No"}</Text>
-                    <Text>Trash Collection: {resident.trashCollection ? "Yes" : "No"}</Text>
-                    <Text>Pickup Day: {editing ? updatedResident.pickupDay : (resident.pickupDay || "N/A")}</Text>
+      {/* Search Bar */}
+      <FormControl mb={6}>
+        <FormLabel htmlFor="search">Search by Address</FormLabel>
+        <Input
+          id="search"
+          placeholder="Type address..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </FormControl>
 
-                    {editing ? (
-                        <Box mt={4}>
-                            <Text fontSize="lg" fontWeight="bold">Edit Resident:</Text>
-                            <FormControl>
-                                <FormLabel>Address</FormLabel>
-                                <Input
-                                    type="text"
-                                    value={updatedResident.address}
-                                    onChange={(e) => handleEdit("address", e.target.value)}
-                                />
-                                <FormLabel>Payment Status</FormLabel>
-                                <Select
-                                    value={updatedResident.paymentStatus ? "Yes" : "No"}
-                                    onChange={(e) => handleEdit("paymentStatus", e.target.value === "Yes")}
-                                >
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </Select>
-                                <FormLabel>Trash Collection</FormLabel>
-                                <Select
-                                    value={updatedResident.trashCollection ? "Yes" : "No"}
-                                    onChange={(e) => handleEdit("trashCollection", e.target.value === "Yes")}
-                                >
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </Select>
-                                <FormLabel>Pickup Day</FormLabel>
-                                <Select
-                                    value={updatedResident.pickupDay || ""}
-                                    onChange={(e) => handleEdit("pickupDay", e.target.value)}
-                                >
-                                    <option value="" disabled>Select a day</option>
-                                    <option value="Monday">Monday</option>
-                                    <option value="Tuesday">Tuesday</option>
-                                    <option value="Wednesday">Wednesday</option>
-                                    <option value="Thursday">Thursday</option>
-                                    <option value="Friday">Friday</option>
-                                </Select>
-                                <Button mt={4} colorScheme="teal" onClick={handleSave}>
-                                    Save
-                                </Button>
-                                <Button mt={4} ml={2} onClick={() => setEditing(false)}>
-                                    Cancel
-                                </Button>
-                            </FormControl>
-                        </Box>
-                    ) : (
-                        <Box mt={4}>
-                            <HStack spacing={4}>
-                                <Button variant="edit" onClick={() => setEditing(true)}>
-                                    Edit Resident
-                                </Button>
-                                <Button variant="danger" onClick={handleDelete}>
-                                    Delete Resident
-                                </Button>
-                            </HStack>
-                        </Box>
-                    )}
-                </Box>
+      {/* Resident List */}
+      <VStack align="stretch">
+        {filteredResidents.map((resident, index) => (
+          <Box
+            key={index}
+            p={4}
+            bg="gray.100"
+            borderRadius="md"
+            boxShadow="sm"
+            w="100%"
+            textAlign="left"
+          >
+            <Text fontSize="lg" fontWeight="bold">
+              Address: {resident.address}
+            </Text>
+            <Text>Pickup Day: {resident.pickupDay}</Text>
+            <Text>Payment Status: {resident.paymentStatus ? "Paid" : "Unpaid"}</Text>
+            <Text>Trash Collected: {resident.trashCollection ? "Yes" : "No"}</Text>
+            {editingResident === resident.id ? (
+              <Box mt={4}>
+                <FormControl>
+                  <FormLabel>Address</FormLabel>
+                  <Input
+                    value={updatedResident.address}
+                    onChange={(e) => setUpdatedResident({ ...updatedResident, address: e.target.value })}
+                  />
+                  <FormLabel>Payment Status</FormLabel>
+                  <Select
+                    value={updatedResident.paymentStatus ? "Paid" : "Unpaid"}
+                    onChange={(e) => setUpdatedResident({ ...updatedResident, paymentStatus: e.target.value === "Paid" })}
+                  >
+                    <option value="Paid">Paid</option>
+                    <option value="Unpaid">Unpaid</option>
+                  </Select>
+                  <FormLabel>Trash Collection</FormLabel>
+                  <Select
+                    value={updatedResident.trashCollection ? "Yes" : "No"}
+                    onChange={(e) => setUpdatedResident({ ...updatedResident, trashCollection: e.target.value === "Yes" })}
+                  >
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </Select>
+                  <FormLabel>Pickup Day</FormLabel>
+                  <Select
+                    value={updatedResident.pickupDay || ""}
+                    onChange={(e) => setUpdatedResident({ ...updatedResident, pickupDay: e.target.value })}
+                  >
+                    <option value="" disabled>Select a day</option>
+                    {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map(day => (
+                      <option key={day} value={day}>
+                        {day}
+                      </option>
+                    ))}
+                  </Select>
+                  <Button mt={4} colorScheme="teal" onClick={handleSave}>
+                    Save
+                  </Button>
+                  <Button mt={4} ml={2} onClick={() => setEditingResident(null)}>
+                    Cancel
+                  </Button>
+                </FormControl>
+              </Box>
+            ) : (
+              <HStack spacing={4}>
+                <Button variant="edit" onClick={() => handleEdit(resident)}>
+                  Edit Resident
+                </Button>
+                <Button variant="danger" onClick={() => handleDelete(resident.id)}>
+                  Delete Resident
+                </Button>
+              </HStack>
             )}
-        </Box>
-    );
+          </Box>
+        ))}
+      </VStack>
+    </Box>
+  );
 };
 
 export default Home;

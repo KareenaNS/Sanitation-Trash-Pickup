@@ -62,7 +62,6 @@ const NavBar = () => {
                                 Add Resident
                             </Text>
                         </NavLink>
-
                         {user && (
                             <Menu>
                                 <MenuButton>
