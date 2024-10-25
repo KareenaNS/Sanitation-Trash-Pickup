@@ -32,7 +32,17 @@ const Home = () => {
     try {
       const q = query(collection(db, "residents"), orderBy("pickupDay"));
       const querySnapshot = await getDocs(q);
-      const residentData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })); // Include the doc ID
+      const residentData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+        qrCode: doc.data().qrCode || "",}));
+      // Generate QR code if not already present
+      residentData.forEach(resident => {
+        if (!resident.qrCode) {
+          resident.qrCode = `http://localhost:3000/home/${resident.id}`; // Replace with your QR code URL generation logic
+          // You may also generate QR code here and store it in Firestore if needed
+        }
+      });
       setResidents(residentData);
       setFilteredResidents(residentData); // Initialize the filtered list
     } catch (error) {
@@ -198,6 +208,7 @@ const Home = () => {
             <Text>Pickup Day: {resident.pickupDay}</Text>
             <Text>Payment Status: {resident.paymentStatus ? "Paid" : "Unpaid"}</Text>
             <Text>Trash Collected: {resident.trashCollection ? "Yes" : "No"}</Text>
+            <img src={resident.qrCodeData} alt={`QR Code for ${resident.address}`} />
             {editingResident === resident.id ? (
               <Box mt={4}>
                 <FormControl>

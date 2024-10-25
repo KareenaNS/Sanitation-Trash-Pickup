@@ -71,7 +71,8 @@ def create_resident():
                             'address': address,
                             'pickupDay': pickup_day or 'undecided',
                             'paymentStatus': payment_status.lower() == 'yes',  # Convert to boolean
-                            'trashCollection': trash_collection.lower() == 'yes'  # Convert to boolean
+                            'trashCollection': trash_collection.lower() == 'yes',  # Convert to boolean
+                            'qrCodeData': f"https://api.qrserver.com/v1/create-qr-code/?data={resident_id}&size=150x150"  # QR code URL
                         }
                         db.collection('residents').document(str(resident_id)).set(resident_data)
             except Exception as e:
@@ -100,7 +101,8 @@ def create_resident():
             'address': address,
             'pickupDay': pickup_day,
             'paymentStatus': payment_status.lower() == 'yes',  # Convert to boolean
-            'trashCollection': trash_collection.lower() == 'yes'  # Convert to boolean
+            'trashCollection': trash_collection.lower() == 'yes',  # Convert to boolean
+            'qrCodeData': f"https://api.qrserver.com/v1/create-qr-code/?data={resident_id}&size=150x150"  # QR code URL
         }
         db.collection('residents').document(str(resident_id)).set(resident_data)
         return jsonify({'id': resident_id, 'message': 'Resident created successfully!'}), 201
