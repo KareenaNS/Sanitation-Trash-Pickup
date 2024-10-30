@@ -12,9 +12,7 @@ import RegisterUser from "./components/RegisterUser";
 import { Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext'; // Import AuthProvider
 import { auth } from './FirebaseUse'; // Import Firebase auth
-import QRCodeScanner from './components/QRCodeScanner'; // Import QRCodeScanner
 import PaymentStatus from './components/PaymentStatus'; // Ensure this line is present
-
 
 const App = () => {
   const [user, setUser] = useState(null); //store the username after login
@@ -45,7 +43,8 @@ const App = () => {
             <Route path="/register" element={<RegisterUser onRegister={handleRegister} />} />
             <Route path="/home" element={user ? <Home /> : <Navigate to="/login" />} /> {/* Protected Route */}
             <Route path="/components/add-resident" element={user ? <AddResidentForm /> : <Navigate to="/login" />} /> {/* Protected Route */}
-            <Route path="/payment-status/:residentId" element={<PaymentStatus />} /> {/* Update route to pass resident ID */}
+            {/* <Route path="/payment-status/:residentId" element={<PaymentStatus />} /> Update route to pass resident ID */}
+            <Route path="/payment-status" element={<PaymentStatus />} />
         </Routes>
         </BrowserRouter>
       </AuthProvider>

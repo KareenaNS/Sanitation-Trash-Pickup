@@ -25,3 +25,8 @@ This project allows trash collectors to scan QR codes on trash cans to check if 
 - Known bugs: the QR code scanning is still not directing the user to their own resident page
 - Next features to implement: fixing the QR code reading and updating the trashCollected field, implement verification for signup (have to have a city email)
 - Future sprints: Returns to user a list of all residents whose trash has not been picked up by the end of the week and they have paid
+
+## Sprint 4 Features
+- Completed this sprint: added resident id field to be searched for on the home page; QR code is directing to the right place now. 
+- Known bugs: There is no way to track whether or not the trash has been collected if the resident has not paid because that requires the trash collector to note whether they picked it up or not: right now, the QR code is scanned and it automatically updates as collected
+- Next features to implement: 
