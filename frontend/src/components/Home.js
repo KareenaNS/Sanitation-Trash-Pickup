@@ -39,8 +39,8 @@ const Home = () => {
       // Generate QR code if not already present
       residentData.forEach(resident => {
         if (!resident.qrCode) {
-          resident.qrCode = `http://localhost:3000/home/${resident.id}`; // Replace with your QR code URL generation logic
-          // You may also generate QR code here and store it in Firestore if needed
+          // resident.qrCode = `http://localhost:3000/home/${resident.id}`; // Replace with your QR code URL generation logic
+          resident.qrCode = `http://192.168.1.7:3000/payment-status/${resident.id}`; // Use your local IP address
         }
       });
       setResidents(residentData);
