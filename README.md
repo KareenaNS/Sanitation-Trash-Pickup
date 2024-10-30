@@ -19,3 +19,9 @@ This project allows trash collectors to scan QR codes on trash cans to check if 
 - Next features to implement: Create a page with a list of all residents, start researching how i can link the qr code to the six digit resident id i made
     - The Qr code should be able to do two things: 1. it should display to the person scanning it that the resident has paid or not and 2. it should update the database to change the trashCollection field to true
 - Future sprints: TBA
+
+## Sprint 3 Features
+- Completed this sprint: Changed the UI to have a list of residents with filters and a search bar as the home page,
+- Known bugs: the QR code scanning is still not directing the user to their own resident page
+- Next features to implement: fixing the QR code reading and updating the trashCollected field, implement verification for signup (have to have a city email)
+- Future sprints: Returns to user a list of all residents whose trash has not been picked up by the end of the week and they have paid
