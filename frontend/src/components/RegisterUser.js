@@ -68,7 +68,10 @@
 
 import React, { useState } from "react";
 import { Box, Button, FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
-import { auth } from '../FirebaseUse'; // Adjust the import based on your Firebase setup
+import { auth } from '../FirebaseUse'; // Import Firebase auth functions
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"; // Import for Microsoft
+import { OAuthProvider } from "firebase/auth"; // Import for Microsoft
+import addUser from "../utils/AddUser";
 
 const RegisterUser = () => {
     const [name, setName] = useState("");
@@ -76,32 +79,44 @@ const RegisterUser = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError("");
+    const handleMicrosoftSignIn = async () => {
+        const provider = new OAuthProvider('microsoft.com');
 
-        // Validate email domain
-        if (!email.endsWith('@morrowga.gov')) {
-            setError("You must register with a morrowga.gov email address.");
-            return;
-        }
-
+        // Sign in with a popup
         try {
-            // Register the user with Firebase
-            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-            const user = userCredential.user;
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
 
-            // Send email verification
-            await user.sendEmailVerification();
-            alert('Verification email sent! Please check your inbox.');
-
-            // Reset form fields
-            setName("");
-            setEmail("");
-            setPassword("");
+            // Check if the user's email ends with @morrowga.gov
+            if (user.email && user.email.endsWith('@morrowga.gov')) {
+                alert("Registration successful! Verification email sent.");
+                // Optionally, send a verification email here
+            } else {
+                alert("You must register with a morrowga.gov email address.");
+                // Optionally, sign out the user if they don't meet the email criteria
+                // await auth.signOut();
+            }
         } catch (error) {
             setError(error.message);
         }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const userData = {
+            id: email, // Use email as the unique identifier
+            name,
+            email,
+            password,
+            createdAt: new Date(),
+        };
+
+        await addUser(userData);
+        alert("User registered successfully!");
+        // Reset form fields
+        setName("");
+        setEmail("");
+        setPassword(""); // Reset password field
     };
 
     return (
@@ -117,26 +132,8 @@ const RegisterUser = () => {
                         placeholder="Enter your name"
                     />
                 </FormControl>
-                <FormControl mb={4} isRequired>
-                    <FormLabel>Email</FormLabel>
-                    <Input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email"
-                    />
-                </FormControl>
-                <FormControl mb={4} isRequired>
-                    <FormLabel>Password</FormLabel>
-                    <Input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Enter your password"
-                    />
-                </FormControl>
-                <Button mt={4} colorScheme="teal" type="submit">
-                    Register
+                <Button mt={4} colorScheme="teal" onClick={handleMicrosoftSignIn}>
+                    Register with Microsoft
                 </Button>
             </form>
         </Box>
