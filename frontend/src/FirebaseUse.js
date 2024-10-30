@@ -5,7 +5,8 @@ import { getFirestore } from "firebase/firestore"; // Re-import Firestore functi
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
- 
+//value id for morrowauth for client secret for azure: oEY8Q~muOSsOJ3EOOupsQ0flaHmnXKpHvj2-sb.X
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyD4zwM9m9dRzIzht58M-lJoyzm-ir9Lapo",
