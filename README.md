@@ -27,6 +27,11 @@ This project allows trash collectors to scan QR codes on trash cans to check if 
 - Future sprints: Returns to user a list of all residents whose trash has not been picked up by the end of the week and they have paid
 
 ## Sprint 4 Features
-- Completed this sprint: added resident id field to be searched for on the home page; QR code is directing to the right place now. 
+- Completed this sprint: added resident id field to be searched for on the home page; QR code is directing to the right place now; authentication added so only city of morrow emails can access the database; once QR code scanned, it flashes red or green if the resident has paid or not, and trashCollection field automatically updating if paid
 - Known bugs: There is no way to track whether or not the trash has been collected if the resident has not paid because that requires the trash collector to note whether they picked it up or not: right now, the QR code is scanned and it automatically updates as collected
+- Next features to implement: paginate the home page, figure out how to reset trashCollection and paymentStatus every cycle, return a list to the user at the end of the week of who paid and hasn't been picked up yet, figure out password reset -- is it thru microsoft or do i gotta do it myself?
+
+## Sprint 5 Features
+- Completed this sprint: 
+- Known bugs: 
 - Next features to implement: 
