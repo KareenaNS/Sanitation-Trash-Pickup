@@ -21,7 +21,6 @@ const customTheme = extendTheme({
     gray: "#F5F5F5", // Light gray for subtle elements
     cyan: "#00BFFF", // Bright cyan for accent elements
     mauve: "#D8BFD8", // Soft mauve for subtle elements
-    red: "#FF0000",
     navy: "#003366", // Deep navy for headers and strong text
     body: "#4A4A4A", // Dark gray for main body text
     body_inactive: "rgba(0, 0, 0, 0.5)", // Slightly less opaque text
