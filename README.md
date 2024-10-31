@@ -33,3 +33,6 @@ All rights reserved. This software may not be used, copied, modified, or distrib
 - Completed this sprint: added resident id field to be searched for on the home page; QR code is directing to the right place now. 
 - Known bugs: There is no way to track whether or not the trash has been collected if the resident has not paid because that requires the trash collector to note whether they picked it up or not: right now, the QR code is scanned and it automatically updates as collected
 - Next features to implement: 
+
+
+© 2024 Kareena NS. All Rights Reserved.
