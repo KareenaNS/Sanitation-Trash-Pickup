@@ -1,9 +1,9 @@
-## License
-All rights reserved. This software may not be used, copied, modified, or distributed without explicit permission from the owner of this repository, Kareena NS.
-
 # Trash Pickup QR Code System
 
 This project allows trash collectors to scan QR codes on trash cans to check if residents have paid for the month and whether their trash has been picked up for the week.
+
+## License
+All rights reserved. This software may not be used, copied, modified, or distributed without explicit permission from the owner of this repository, Kareena NS.
 
 ## Features
 - Generate unique QR codes for each resident's trash can.
