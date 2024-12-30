@@ -38,6 +38,7 @@ All rights reserved. This software may not be used, copied, modified, or distrib
   3. Need to order a scanner to test out what will work with the QR codes and what will show up on there.
   4. Returns to user a list of all residents whose trash has not been picked up by the end of the week and they have paid
   5. Reset the date/time field, trashCollected field, and the paymentStatus field every week, week, and month/payment cycle
+  6. Need to figure out deployment of this app. I've only deployed frontend with minimal backend, not an entire firebase database...
 
 
 © 2024 Kareena NS. All Rights Reserved.
