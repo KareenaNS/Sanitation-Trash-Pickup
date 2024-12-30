@@ -32,7 +32,12 @@ All rights reserved. This software may not be used, copied, modified, or distrib
 ## Sprint 4 Features
 - Completed this sprint: added resident id field to be searched for on the home page; QR code is directing to the right place now. 
 - Known bugs: There is no way to track whether or not the trash has been collected if the resident has not paid because that requires the trash collector to note whether they picked it up or not: right now, the QR code is scanned and it automatically updates as collected
-- Next features to implement: 
+- Next features to implement:
+  1. I need to figure out how to implement a way to track payment from the resident. Also, Nick mentioned that each resident has their own 6-digit resident ID already in BS&A, so maybe use the API for this?
+  2. Maybe have a gotcha statement. So once the QR code for the resident is scanned, there will be a field that will show the date and time the QR code was scanned. The trashCollected field is only marked as true if the resident has paid and the date and time field has been filled out, which means that the QR code has been scanned.
+     3. Need to order a scanner to test out what will work with the QR codes and what will show up on there.
+     4. Returns to user a list of all residents whose trash has not been picked up by the end of the week and they have paid
+     5. Reset the date/time field, trashCollected field, and the paymentStatus field every week, week, and month/payment cycle
 
 
 © 2024 Kareena NS. All Rights Reserved.
